@@ -53,4 +53,9 @@ public class Crime {
     public void setRequiresPolice(boolean requiresPolice) {
         mRequiresPolice = requiresPolice;
     }
+
+    @Override
+    public String toString() {
+        return "Hello this is crime";
+    }
 }

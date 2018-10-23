@@ -1,5 +1,6 @@
 package com.android.criminalintentvv.myfragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import android.text.format.DateFormat;
 
 import com.android.criminalintentvv.R;
+import com.android.criminalintentvv.myactivities.CrimeActivity;
 import com.android.criminalintentvv.utilites.Crime;
 import com.android.criminalintentvv.utilites.CrimeLab;
 
@@ -69,7 +71,8 @@ public class CrimeListFragment extends Fragment {
         }
         @Override
         public void onClick(View v) {
-            Toast.makeText(getContext(),mCrime.getTitle()+" clicked!",Toast.LENGTH_SHORT).show();
+            Intent intent=CrimeActivity.newIntent(getActivity(),mCrime.getId());
+            startActivity(intent);
         }
     }
 

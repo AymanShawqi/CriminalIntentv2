@@ -14,9 +14,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.criminalintentvv.myactivities.CrimeActivity;
 import com.android.criminalintentvv.utilites.Crime;
 import com.android.criminalintentvv.R;
+import com.android.criminalintentvv.utilites.CrimeLab;
+
+import java.util.UUID;
 
 
 public class CrimeFragment extends Fragment implements TextWatcher , OnCheckedChangeListener {
@@ -31,7 +36,12 @@ public class CrimeFragment extends Fragment implements TextWatcher , OnCheckedCh
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime=new Crime();
+
+        UUID crime_id=(UUID)(getActivity().getIntent()
+               .getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID));
+
+       mCrime=CrimeLab.getCrimeLab(getActivity()).getCrime(crime_id);
+
     }
 
     @Nullable
@@ -40,6 +50,7 @@ public class CrimeFragment extends Fragment implements TextWatcher , OnCheckedCh
         View v=inflater.inflate(R.layout.fragment_crime,container,false);
 
         mTitleField=v.findViewById(R.id.crime_title);
+        mTitleField.setText(mCrime.getTitle());
         mTitleField.addTextChangedListener(this);
 
         mDateBtn =v.findViewById(R.id.crime_date);
@@ -47,6 +58,7 @@ public class CrimeFragment extends Fragment implements TextWatcher , OnCheckedCh
         mDateBtn.setEnabled(false);
 
         mSolvedCheckBox=v.findViewById(R.id.crime_solved);
+        mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(this);
         return v;
     }
