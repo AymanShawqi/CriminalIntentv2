@@ -12,10 +12,12 @@ import java.util.UUID;
 
 public class CrimeActivity extends SingleFragmentActivity {
 
-    public static final String EXTRA_CRIME_ID="com.android.criminalintentvv.crime_id";
+    private static final String EXTRA_CRIME_ID="com.android.criminalintentvv.crime_id";
     @Override
     protected Fragment createFragment() {
-        return new CrimeFragment();
+
+        UUID crime_id=(UUID)getIntent().getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID);
+        return  CrimeFragment.newInstance(crime_id);
     }
 
     public static Intent newIntent(Context packageContext,UUID crime_id){

@@ -7,12 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.text.format.DateFormat;
 
 import com.android.criminalintentvv.R;
@@ -34,14 +34,25 @@ public class CrimeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_crime_list,container,false);
         mRecyclerView=view.findViewById(R.id.crime_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        UpdateUI();
+        updateUI();
         return view;
     }
 
-    private void UpdateUI(){
+    private void updateUI(){
         List<Crime> crimes= CrimeLab.getCrimeLab(getActivity()).getCrimes();
-        mAdapter=new CrimeAdapter(crimes);
-        mRecyclerView.setAdapter(mAdapter);
+        if (mAdapter==null){
+            mAdapter=new CrimeAdapter(crimes);
+            mRecyclerView.setAdapter(mAdapter);
+        }else {
+           // mAdapter.notifyDataSetChanged();
+            mAdapter.notifyItemChanged(1);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
 
     public class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -76,7 +87,6 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
-
 //CrimeAdapter class
     public class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
         private List<Crime> mCrimes;
@@ -89,6 +99,7 @@ public class CrimeListFragment extends Fragment {
         @Override
         public CrimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater=LayoutInflater.from(getActivity());
+            Log.e("ayman", "on Create ViewHolder: ");
                 return new CrimeHolder(layoutInflater,parent,R.layout.list_item_crime);
         }
 
@@ -96,6 +107,7 @@ public class CrimeListFragment extends Fragment {
         public void onBindViewHolder(@NonNull CrimeHolder holder, int position) {
             Crime crime=mCrimes.get(position);
             holder.bind(crime);
+            Log.e("ayman", "on Bind ViewHolder: ");
         }
 
 

@@ -27,21 +27,26 @@ import java.util.UUID;
 public class CrimeFragment extends Fragment implements TextWatcher , OnCheckedChangeListener {
 
     private static final String TAG = "CrimeFragment";
+    private static final String ARG_CRIME_ID="crime_id";
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateBtn;
     private CheckBox mSolvedCheckBox;
     public CrimeFragment(){}
 
+    public static CrimeFragment newInstance(UUID crimeId){
+        Bundle args=new Bundle();
+        args.putSerializable(ARG_CRIME_ID,crimeId);
+        CrimeFragment fragment=new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        UUID crime_id=(UUID)(getActivity().getIntent()
-               .getSerializableExtra(CrimeActivity.EXTRA_CRIME_ID));
-
-       mCrime=CrimeLab.getCrimeLab(getActivity()).getCrime(crime_id);
-
+        UUID crimeId=(UUID)getArguments().getSerializable(ARG_CRIME_ID);
+        mCrime=CrimeLab.getCrimeLab(getContext()).getCrime(crimeId);
     }
 
     @Nullable
