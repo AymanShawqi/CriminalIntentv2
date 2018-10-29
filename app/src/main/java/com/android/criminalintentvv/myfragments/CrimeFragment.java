@@ -14,9 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.criminalintentvv.myactivities.CrimeActivity;
 import com.android.criminalintentvv.utilites.Crime;
 import com.android.criminalintentvv.R;
 import com.android.criminalintentvv.utilites.CrimeLab;

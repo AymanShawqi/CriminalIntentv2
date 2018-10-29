@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.text.format.DateFormat;
 
 import com.android.criminalintentvv.R;
-import com.android.criminalintentvv.myactivities.CrimeActivity;
+import com.android.criminalintentvv.myactivities.CrimePagerActivity;
 import com.android.criminalintentvv.utilites.Crime;
 import com.android.criminalintentvv.utilites.CrimeLab;
 
@@ -81,7 +81,8 @@ public class CrimeListFragment extends Fragment {
         }
         @Override
         public void onClick(View v) {
-            Intent intent=CrimeActivity.newIntent(getActivity(),mCrime.getId());
+            //Intent intent=CrimeActivity.newIntent(getActivity(),mCrime.getId());
+            Intent intent=CrimePagerActivity.newIntent(getActivity(),mCrime.getId());
             startActivity(intent);
         }
     }
